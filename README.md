@@ -32,7 +32,7 @@ This is the payload to be printed. ASCII letters represented in hexadecimal. The
 This final part is separated from the previous part by the letter `'x'`, because it made debugging and constructing the payload easier.
 These are our opcodes to be written and executed.
 
-```
+```asm
 0:  31 c0                   xor    eax, eax
 2:  31 ff                   xor    edi, edi
 4:  ff c0                   inc    eax
@@ -79,10 +79,10 @@ https://user-images.githubusercontent.com/61374847/141669441-661e17da-a441-4d34-
 
 ![733655604404420648](https://user-images.githubusercontent.com/61374847/141669516-c19286fe-b13c-4f6e-99ff-080a201d94dc.png)
 
-This is the disassembly of our `_malloc` function, before running the binary:
+This is the disassembly of compiled code for our `_malloc` function:
 
 Disassembly of `_malloc`
-```
+```nasm
 000000000000187e <_malloc>:
     187e:       55                      push   rbp
     187f:       48 89 e5                mov    rbp,rsp
@@ -90,11 +90,32 @@ Disassembly of `_malloc`
     1883:       ff                      (bad)
     1884:       ff                      (bad)
     1885:       ff                      (bad)
-    ...
+    ; < ... repeat ... >
     197f:       ff                      (bad)
     1980:       ff                      (bad)
     1981:       ff                      .byte 0xff
     1982:       90                      nop
     1983:       5d                      pop    rbp
     1984:       c3                      ret
+```
+
+
+**Runtime** Dump of assembler code for function `_malloc`:
+```asm
+   0x000055555555587f <+0>:     31 c0                           xor    eax, eax
+   0x0000555555555881 <+2>:     31 ff                           xor    edi, edi
+   0x0000555555555883 <+4>:     ff c0                           inc    eax
+   0x0000555555555885 <+6>:     ff c7                           inc    edi
+   0x0000555555555887 <+8>:     48 be a2 58 55 55 55 55 00 00   movabs rsi, 0x5555555558a2
+   0x0000555555555891 <+18>:    ba 0d 00 00 00                  mov    edx, 0xd
+   0x0000555555555896 <+23>:    0f 05                           syscall
+   0x0000555555555898 <+25>:    b8 3c 00 00 00                  mov    eax, 0x3c
+   0x000055555555589d <+30>:    31 ff                           xor    edi,edi
+   0x000055555555589f <+32>:    0f 05                           syscall
+   0x00005555555558a1 <+34>:    c3                              ret
+   < --- DATA BYTES START HERE --- >
+   0x00005555555558a2 <+35>:    68 65 6c 6c 6f
+   0x00005555555558a7 <+40>:    20 77 6f
+   0x00005555555558aa <+43>:    72 6c   jb
+   0x00005555555558ac <+45>:    64 0a 00
 ```
