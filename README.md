@@ -3,7 +3,7 @@ _in other words, another self rewriting binary.. boy I just love doing these._
 
 ## Description
 The idea behind this one is to fetch opcodes and data from a remote server to rewrite the binary with during runtime.  
-Except this time, we go x64 and `-nostdlib`, so everything will be done using syscalls and a few helper buddies from [x0lib](https://github.com/x0reaxeax/x0l1b).
+Except this time, we go x64 and `-nostdlib`, so everything will be done using syscalls and a few helper buddies.
 
 ## Remote Server Setup 
 Alright, we have our `index` file, which contains this long mess:
